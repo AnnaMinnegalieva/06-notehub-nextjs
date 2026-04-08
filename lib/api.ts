@@ -1,5 +1,10 @@
 import axios from "axios";
-import type { Note, NoteTag, NoteListResponse } from "@/types/note";
+import type { Note, NoteTag } from "@/types/note";
+
+export type NoteListResponse = {
+  notes: Note[];
+  totalPages: number;
+};
 
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 axios.defaults.headers.common["Authorization"] =
@@ -32,7 +37,7 @@ export const createNote = async (newNote: CreateNoteData): Promise<Note> => {
   return res.data;
 };
 
-export const deleteNote = async (id: number): Promise<Note> => {
+export const deleteNote = async (id: string): Promise<Note> => {
   const res = await axios.delete<Note>(`/notes/${id}`);
   return res.data;
 };

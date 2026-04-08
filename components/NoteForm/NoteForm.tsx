@@ -20,7 +20,7 @@ interface FormValues {
 
 const validationSchema = Yup.object({
   title: Yup.string().min(3, "Min 3 characters").required("Required"),
-  content: Yup.string().min(5, "Min 5 characters").required("Required"),
+  content: Yup.string().max(500, "Max 500 characters"),
   tag: Yup.string()
     .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
     .required("Required"),
@@ -85,6 +85,12 @@ export default function NoteForm({ onClose }: NoteFormProps) {
         <button className={css.button} type="submit">
           Create note
         </button>
+        <button className={css.button} type="submit">
+  Create note
+</button>
+<button className={css.button} type="button" onClick={onClose}>
+  Cancel
+</button>
       </Form>
     </Formik>
   );

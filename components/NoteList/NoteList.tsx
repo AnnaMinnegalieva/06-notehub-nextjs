@@ -7,11 +7,11 @@ import type { Note } from "@/types/note";
 import { deleteNote } from "@/lib/api";
 import css from "./NoteList.module.css";
 
-type Props = {
+type NoteListProps = {
   notes: Note[];
 };
 
-const NoteList = ({ notes }: Props) => {
+const NoteList = ({ notes }: NoteListProps) => {
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
