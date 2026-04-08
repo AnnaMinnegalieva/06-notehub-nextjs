@@ -1,5 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import type { Note } from "@/types/note";
+import { deleteNote } from "@/lib/api";
 import css from "./NoteList.module.css";
 
 type Props = {
@@ -7,6 +12,19 @@ type Props = {
 };
 
 const NoteList = ({ notes }: Props) => {
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      toast.success("Note deleted successfully!");
+    },
+    onError: () => {
+      toast.error("Failed to delete note!");
+    },
+  });
+
   return (
     <ul className={css.list}>
       {notes.map((note) => (
@@ -18,6 +36,12 @@ const NoteList = ({ notes }: Props) => {
             <Link href={`/notes/${note.id}`} className={css.link}>
               View details
             </Link>
+            <button
+              className={css.button}
+              onClick={() => deleteMutation.mutate(note.id)}
+            >
+              Delete
+            </button>
           </div>
         </li>
       ))}

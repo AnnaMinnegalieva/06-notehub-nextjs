@@ -1,8 +1,10 @@
+export type NoteTag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
+
 export type Note = {
-  id: string;
+  id: number;
   title: string;
   content: string;
-  tag: string;
+  tag: NoteTag;
   userId: string;
   createdAt: string;
   updatedAt: string;
@@ -10,5 +12,5 @@ export type Note = {
 
 export type NoteListResponse = {
   notes: Note[];
-  total: number;
+  totalPages: number;
 };
